@@ -174,4 +174,100 @@ Hi
 함수_이름()
 ```
 
+## 매개변수를 지정하여 호출하기
+
+함수를 호출할 때 매개변수를 지정할 수도 있다.
+
+```python
+>>> def sub(a, b):
+...     return a - b
+```
+
+이 함수는 다음과 같이 매개변수를 지정하여 사용할 수 있다.
+
+```python
+>>> result = sub(a=7, b=3)
+>>> print(reslut)
+4
+```
+
+## 입력값이 몇 개가 될지 모를 때는 어떻게 해야 할까?
+
+몇 개가 입력될지 모를 때는 어떻게 해야 할까?
+
+```
+def 함수_이름(*매개변수):
+    수행할_문장
+    ...
+```
+
+괄호 안의 매개변수 부분이 `*매개변수`로 바뀌었다.
+
+### 여러 개의 입력값을 받는 함수 만들기
+
+```python
+>>> def add_many(*args):
+...     result = 0
+...     for i in args:
+...         result += i
+...     return reslut
+```
+
+위에서 만든 add_many 함수는 입력값이 몇 개이든 상관없다. `*args`처럼 매개변수 이름 앞에 `*`을 붙이면 입력값을 전부 모아 튜플로 만들어 주기 때문이다. 여기에서 `*args`는 임의로 정한 변수 이름이다.
+
+```python
+>>> result = add_many(1, 2, 3)
+>>> print(reslut)
+6
+>>> result = add_many(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+>>> print(result)
+55
+```
+
+여러 개읩 입력을 처리할 때 `def add_many(*args)`처럼 함수의 매개변수로 `*args` 하나만 사용할 수 있는 것은 아니다.
+
+```python
+def add_mul(choice, *args):
+    if choice == 'add':
+        result = 0
+        for i in args:
+            result += i
+    elif choice == 'mul':
+        result = 1
+        for i in args:
+            result += i
+        return result
+```
+
+이 함수는 다음과 같이 사용할 수 있다.
+
+```python
+>>> result = add_mul('add', 1,2,3,4,5)
+>>> print(result)
+15
+>>> result = add_mul('mul', 1,2,3,4,5)
+>>> print(result)
+120
+```
+
+## 키워드 매개변수, kwargs
+
+이번에는 키워드 매개변수에 대해 알아보자. 키워드 매개변수를 사용할 때는 매개변수 앞에 별 2개(**)를 붙인다.
+
+```python
+>>> def print_kwargs(**kwargs):
+...     print(kwargs)
+```
+
+함수를 다음과 같이 사용해 보자.
+
+```python
+>>> print_kwargs(a=1)
+{'a': 1}
+>>> print_kwargs(name='food', age=3)
+{'age': 3, 'name': 'food'}
+```
+
+함수의 입력값으로 `a=1`이 사용되면 kwargs는 `{'a': 1}`이라는 딕셔너리가 된다. 즉, `**kwargs` 이름 앞에 `**`를 붙이면 매개변수는 딕셔너리가 되고 모든 Key=Value 형태의 입력값이 그 딕셔너리에 저장된다.
+
 
