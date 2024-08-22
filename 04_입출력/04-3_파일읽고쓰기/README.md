@@ -141,4 +141,4 @@ with open("foo.txt", "w") as f:
     f.write("Life is too short, you need python")
 ```
 
-위와 같이 with 문을 사용하면 with 블록을 벗어나는 순간, 열린 파일 객체 f가 자동으로 닫힌다.
+위와 같이 with 문을 사용하면 with 블록을 벗어나는 순간, 열린 파일 객체 f가 자동으로 닫힌다. 
