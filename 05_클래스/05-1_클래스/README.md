@@ -294,3 +294,84 @@ self.second = 2
 ```
 
 우리가 목표로 한 사칙 연산 기능을 가진 클래스를 만들어 보았다.
+
+## 생성자
+
+FourCal 클래스를 다음과 같이 사용해 보자.
+
+```py
+>>> a = FourCal()
+>>> a.add()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 6, in add
+AttributeError: 'FourCal' object has no attribute 'first'
+```
+
+FourCal 클래스의 인스턴스 a에 setdata 메서드를 수행하지 않고 add 메서드를 먼저 수행하면 오류가 발생한다. setdata 메서드를 수행해야 객체 a의 객체변수 first와 second가 생성되기 때문이다. 객체에 초깃값을 설정해야 할 필요가 있을 때는 생성자를 구현하는 것이 안전한 방법이다.
+
+생성자란 객체가 생성될 때 자동으로 호출되는 메서드를 의미한다. 파이썬 메서드명으로 `__init__`를 사용하면 이 메서드는 생성자가 된다.
+
+FourCal 클래스에 생성자를 추가해 보자.
+
+```py
+>>> class FourCal:
+...     def __init__(self, first, second):
+...         self.first = first
+...         self.second = second
+...     def setdata(self, first, second):
+...         self.first = first
+...         self.second = second
+...     def add(self):
+...         result = self.first + self.second
+...         return result
+...     def mul(self):
+...         result = self.first * self.second
+...         return result
+...     def sub(self):
+...         result = self.first - self.second
+...         return result
+...     def div(self):
+...         result = self.first / self.second
+...         return result
+...
+>>>
+```
+
+생성자 `__init__` 메서드만 따로 떼어 내서 살펴보자.
+
+```py
+def __init__(self, first, second):
+    self.first = first
+    self.second = second
+```
+
+`__init__` 메서드를 setdata 메서드와 이름만 다르고 모든게 동일하다. 단, 메서드 이름을 `__init__`로 했기 때문에 생성자로 인식되어 객체가 생성되는 시점에 자동으로 호출된다.
+
+a 객체를 생성해 보자.
+
+```py
+>>> a = FourCal()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: __init__() missing 2 required positional arguments: 'first' and 'second'
+```
+
+`a = FourCal()`을 수행할 때 생성자 `__init__`가 호출되어 위와 같은 오류가 발생했다. 오류가 발생한 이유는 생성자의 매개변수 first와 second에 해당하는 값이 전달되지 않았기 때문이다.
+
+오류를 해결하려면 다음과 같이 해야 한다.
+
+```py
+>>> a = FourCal(4, 2)
+>>>
+```
+
+위와 같이 수행하면 `__init__` 메서드의 매개변수에는 각각 다음과 같은 값이 전달된다.
+
+|매개변수|값|
+|---|---|
+|self|생성되는 객체|
+|first|4|
+|second|2|
+
+> `__init__` 메서드도 다른 메서드와 마찬가지로 첫 번째 매개변수 self에 생성되는 객체가 자동으로 전달된다.
