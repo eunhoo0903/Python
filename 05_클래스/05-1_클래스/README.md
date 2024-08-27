@@ -428,3 +428,39 @@ pass 문장은 삭제하고 위와 같이 두 수의 거듭제곱을 구할 수 
 
 MoreFourCal 클래스로 만든 a 객체에 값 4와 2를 지정한 후 pow 메서드를 호출하면 4의 2제곱인 16을 리턴한다. 상속받은 기능인 add 메서드도 잘 동작한다.
 
+## 메서드 오버라이딩
+
+FourCal 클래스를 다음과 같이 실행해 보자.
+
+```py
+>>> a = FourCal(4, 0)
+>>> a.div()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+    result = self.first / self.second
+ZeroDivisionError: division by zero
+```
+
+FourCal 클래스의 객체 a에 값 4와 0을 지정하고 div 메서드를 호출하면 4를 0으로 나누려고 하므로 오류가 발생한다. 0으로 나눌 때 오류가 아닌 0을 리턴받고 싶다면 어떻게 해야 할까?
+
+FourCal 클래스를 상속하는 SafeFourCal 클래스를 만들어 보자.
+
+```py
+>>> class SafeFourCal(FourCal):
+...     def div(self):
+...         if self.second == 0:
+...             return 0
+...         else:
+...             return self.first / self.second
+```
+
+FourCal 클래스에 있는 div 메서드를 동일한 이름으로 다시 작성했다. 이렇게 부모 클래스에 있는 메서드를 동일한 이름으로 다시 만드는 것을 **메서드 오버라이딩**이라고 한다. 이렇게 메서드를 오버라이딩하면 부모 클래스의 메서드 대신 오버라이딩한 메서드가 호출된다.
+
+SafeFourCal 클래스에 오버라이딩한 div 메서드는 나누는 값이 0인 경우에는 0을 리턴하도록 수정했다.
+
+```py
+>>> a = SafeFourCal(4, 0)
+>>> a.div()
+0
+```
+
