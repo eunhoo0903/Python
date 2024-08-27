@@ -375,3 +375,56 @@ TypeError: __init__() missing 2 required positional arguments: 'first' and 'seco
 |second|2|
 
 > `__init__` 메서드도 다른 메서드와 마찬가지로 첫 번째 매개변수 self에 생성되는 객체가 자동으로 전달된다.
+
+## 클래스의 상속
+
+상속이란 '물려받다'라는 뜻으로, '재산을 상속받다'라고 할 때의 상속과 같은 의미이다. 클래스에도 이 개념을 적용할 수 있다. 어떤 클래스를 만들 때 다른 클래스의 기능을 물려받을 수 있게 만드는 것이다.
+
+FourCal 클래스를 상속하는 MoreFourCal 클래스는 다음과 같이 간단하게 만들 수 있다.
+
+```py
+>>> class MoreFourCal(FourCal):
+...     pass
+```
+
+클래스를 상속하기 위해서는 다음처럼 클래스 이름 뒤 괄호 안에 상속할 클래스 이름을 넣어주면 된다.
+
+```
+class 클래스_이름(상속할_클래스_이름)
+```
+
+MoreFourCal 클래스는 FourCal 클래스를 상속했으므로 FourCal 클래스의 모든 기능을 사용할 수 있다.
+
+```py
+>>> a = MoreFourCal(4, 2)
+>>> a.add()
+6
+>>> a.mul()
+8
+>>> a.sub()
+2
+>>> a.div()
+2
+```
+
+a^b를 계산하는 MoreFourCal 클래스를 만들어 보자.
+
+```py
+>>> class MoreFourCal(FourCal):
+...     def pow(self)
+...         result = self.forst ** self.second
+...         return result 
+```
+
+pass 문장은 삭제하고 위와 같이 두 수의 거듭제곱을 구할 수 있는 pow 메서드를 추가했다.
+
+```py
+>>> a = MoreFourCal(4, 2)
+>>> a.pow()
+16
+>>> a.add()
+6
+```
+
+MoreFourCal 클래스로 만든 a 객체에 값 4와 2를 지정한 후 pow 메서드를 호출하면 4의 2제곱인 16을 리턴한다. 상속받은 기능인 add 메서드도 잘 동작한다.
+
