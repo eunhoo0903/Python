@@ -121,3 +121,55 @@ ModuleNotFoundError: No module named 'game.sound.echo.echo_test'; 'game.sound.ec
 ```
 
 도트 연산자(.)를 사용해서 `import a.b.c`처럼 import할 때 가장 마지막 항목인 c는 반드시 모듈 또는 패키지여야만 한다.
+
+## __init__.py의 용도
+
+`__init__.py` 파일은 해당 디렉터리가 패키지의 일부임을 알려주는 역할을 한다. 만약 game, sound, graphic 등 패키지에 포함된 디렉터리에 `__init__.py` 파일이 없다면 패키지로 인식되지 않는다.
+
+또한, `__init__.py` 파일은 패키지와 관련된 설정이나 초기화 코드를 포함할 수 있다.
+
+### 패키지 변수 및 함수 정의
+
+패키지 수준에서 변수와 함수를 정의할 수 있다. 예를 들어, game 패키지의 `__init__.py` 파일에 공통 변수나 함수를 정의할 수 있다.
+
+```py
+# C:/doit/game/__init__.py
+VERSION = 3.5
+
+def print_version_info():
+    print(f"The version of this game is {VERSION}.")
+```
+
+이렇게 패키지의 `__init__.py` 파일에 정의된 변수와 함수는 다음과 같이 사용할 수 있다.
+
+```py
+>>> import game
+>>> print(game.VERSION)
+3.5
+>>> game.print_version_info()
+The version of this game is 3.5.
+```
+
+### 패키지 내 모듈을 미리 import
+
+`__init__.py` 파일에 패키지 내의 다른 모듈은 미리 import하여 패키지를 사용하는 코드에서 간편하게 접근할 수 있다.
+
+```py
+# C:/doit/game/__init__.py
+from .graphic.render import render_test
+
+VERSION = 3.5
+
+def print_version_info():
+    print(f"The version of this game is {VERSION}.")
+```
+
+> `from .graphic.render import render_test` 문장에서 `.graphic.render`에 사용한 맨 앞의 `.`은 현재 디렉터리를 의미한다.
+
+이제 패키지를 사용하는 코드에서는 다음과 같이 간편하게 game 패키지를 통해 render_test 함수를 사용할 수 있다.
+
+```py
+>>> import game
+>>> game.render_test()
+render
+```
