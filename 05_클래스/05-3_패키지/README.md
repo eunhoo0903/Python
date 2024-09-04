@@ -66,3 +66,58 @@ C:\> set PYTHONPATH=C:/doit
 C:\> python
 >>> 
 ```
+
+## 패키지 안의 함수 실행하기
+
+패키지를 사용하여 echo.py 파일의 echo_test 함수를 실행해 보자. 패키지 안의 함수를 실행하는 방법에는 3가지가 있다.
+
+첫 번째는 echo 모듈을 import하여 실행하는 방법으로, 다음과 같이 실행한다.
+
+> echo 모듈은 echo.py 파일이다.
+
+```py
+>>> import game.sound.echo
+>>> game.sound.echo.ehco_test()
+echo
+```
+
+두 번째는 echo 모듈이 있는 디렉터리까지를 `from ... import`하여 실행하는 방법이다.
+
+```py
+>>> exit()
+C:\> python
+>>> from game.sound import echo
+>>> echo.echo_test()
+echo
+```
+
+세 번째는 echo 모듈의 echo_test 함수를 직접 import하여 실행하는 방법이다.
+
+```py
+>>> from game.sound.echo import echo_test
+>>> echo_test()
+echo
+```
+
+하지만 다음과 같이 echo_test 함수를 사용하는 것은 불가능하다.
+
+```
+>>> import game
+>>> game.sound.echo.echo_test()
+Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+AttributeError: 'module' object has no attribute 'sound'
+```
+
+import game을 수행하면 game 디렉터리의 `__init__.py`에 정의한 것만 참조할 수 있다.
+
+또 다음처럼 echo_test 함수를 사용하는 것도 불가능하다.
+
+```
+>>> import game.sound.echo.echo_test
+Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'game.sound.echo.echo_test'; 'game.sound.echo' is not a package
+```
+
+도트 연산자(.)를 사용해서 `import a.b.c`처럼 import할 때 가장 마지막 항목인 c는 반드시 모듈 또는 패키지여야만 한다.
