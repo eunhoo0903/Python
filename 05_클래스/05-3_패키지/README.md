@@ -173,3 +173,78 @@ def print_version_info():
 >>> game.render_test()
 render
 ```
+
+### 패키지 초기화
+
+`__init__.py` 파일에 패키지를 처음 불러올 때 실행되어야 하는 코드를 작성할 수 있다. (예. 데이터베이스 연결, 설정 파일 로드)
+
+```py
+# C:/doit/game/__init__.py
+from .graphic.render import render_test
+
+VERSION = 3.5
+
+def print_version_info():
+    print(f"The version of this game is {VERSION}.")
+
+# 여기에 패키지 초기화 코드를 작성한다.
+print("Initializing game ..")
+```
+
+이렇게 하면 패키지를 처음 import할 때 초기화 코드가 실행된다.
+
+```py
+>>> import game
+Initializing game ...
+```
+
+game 패키지의 초기화 코드는 game 패키지의 하위 모듈의 함수를 import할 경우에도 실행된다.
+
+```py
+>>> from game.graphic.render import render_test
+Initializing game ...
+```
+
+단, 초기화 코드는 한 번 실행된 후에는 다시 import를 수행하더라도 실행되지 않는다. 다음과 같이 game 패키지를 import한 후에 하위 모듈을 다시 import 하더라도 초기화 코드는 처음 한 번만 실행된다.
+
+```py
+>>> import game
+Initializing game ...
+>>> from game.graphic.render import render_test
+```
+
+### __all__
+
+```py
+>>> from game.sound import *
+Initializing game ...
+>>> echo.echo_test()
+Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+NameError: name 'echo' is not defined
+```
+
+game.sound 패키지에서 모든 것(`*`)을 import 했으므로 echo 모듈을 사용할 수 있어야 할 것 같은데, echo라는 이름이 정의되지 않았다는 오류가 발생했다.
+
+특정 디렉터리의 모듈을 `*`를 사용하여 import할 때느느 다음과 같이 해당 디렉터리의 `__init__.py` 파일에 `__all__` 변수를 설정하고 import할 수 있는 모듈을 정의해 주어야 한다.
+
+```py
+# C:/doit/game/sound/__init__.py
+__all__ = ['echo']
+```
+
+여기에서 `__all_`이 의미하는 것은 sound 디렉터리에서 `*`를 사용하여 import할 경우, 이곳에 정의된 echo 모듈만 import된다는 의미이다.
+
+### relative 패키지
+
+만약 graphic 디렉터리의 render.py 모듈에서 sound 디렉터리의 echo.py 모듈을 사용하고 싶다면 어떻게 해야 할까?
+
+```py
+# render.py
+from game.sound.echo import echo_test
+def render_test():
+    print("render")
+    echo_test()
+```
+
+`from game.sound.echo import echo_test` 문장을 추가하여 echo_test 함수를 사용할 수 있도록 수정했다.
