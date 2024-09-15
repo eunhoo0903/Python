@@ -257,3 +257,89 @@ True
 ```
 
 위 예는 a 객체가 Person 클래스에 의해 생성된 인스턴스라는 것을 확인시켜 준다.
+
+## len
+
+len(s)는 입력값 s의 길이를 리턴하는 함수이다.
+
+```py
+>>> len("python")
+6
+>>> len([1, 2, 3])
+3
+>>> len(1, 'a')
+2
+```
+
+## list
+
+list(iterable)은 반복 가능한 데이터를 입력받아 리스트로 만들어 리턴하는 함수이다.
+
+```py
+>>> list("python")
+['p', 'y', 't', 'h', 'o', 'n']
+>>> list((1, 2, 3))
+[1, 2, 3]
+```
+
+list 함수에 리스트를 입력하면 똑같은 리스트를 복사하여 리턴한다.
+
+```py
+>>> a = [1, 2, 3]
+>>> b = list(a)
+>>> b
+[1, 2, 3]
+```
+
+## map
+
+map(f, iterable)은 함수 (f)와 반복 가능한 데이터를 입력으로 받는다.
+
+```py
+def two_times(numberList):
+    result = []
+    for number in numberList:
+        result.append(number*2)
+    return result
+
+result = two_times([1, 2, 3, 4])
+print(result)
+```
+
+two_times는 리스트를 입력받아 리스트의 각 요소에 2를 곱해 리턴하는 함수이다.
+
+```py
+[2, 4, 6, 8]
+```
+
+위 예제는 map 함수를 사용하여 다음처럼 바꿀 수 있다.
+
+```py
+>>> def two_times(x): 
+...     return x*2
+...
+>>> list(map(two_times, [1, 2, 3, 4]))
+[2, 4, 6, 8]
+```
+
+## max
+
+max(iterable)은 인수로 반복 가능한 데이터를 입력받아 그 최댓값을 리턴하는 함수이다.
+
+```py
+>>> max([1, 2, 3])
+3
+>>> max("python")
+'y'
+```
+
+## min
+
+min(iterable)은 max 함수와 반대로, 인수로 반복 가능한 데이터를 입력받아 그 최솟값을 리턴하는 함수이다.
+
+```py
+>>> min([1, 2, 3])
+1
+>>> min("python")
+'h'
+```
